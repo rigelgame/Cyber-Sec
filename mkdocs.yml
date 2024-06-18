@@ -1,0 +1,72 @@
+site_name: Cyber Sec
+site_author: Etienne C
+theme:
+  language: fr
+  logo: ./logo.png
+  name: material
+  features:
+    - navigation.instant
+    - search.highlight
+  palette:
+    scheme: slate
+    primary: red
+    accent: black
+
+
+markdown_extensions:
+  - attr_list
+  # - pymdownx.emoji:
+  #    emoji_index: !!python/name:materialx.emoji.twemoji
+  #    emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - abbr
+  - def_list
+  - footnotes
+  - pymdownx.betterem
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.critic:
+      mode: view
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+extra_css:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css'
+
+extra_javascript:
+  # - 'javascript/katex.js'
+  - 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js'
+  - 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js'
+
+
+nav:
+  - Accueil: index.md  
+  - NavKillChain : 
+      - 1. Objectif : Objectif.md
+      - 2. Reconnaissance : Recon.md
+      - 3. Scan de Vulnérabilité: "Scan de Vulnérabilité.md"
+      - 4. Attaquer la cible: "Attaquer la cible.md"
+      - 5. Découvert du réseau interne: "Découvert du réseau interne.md"
+      - 6. Action sur objectif: "Action sur objectif.md"
+  - Reverse Engineering: reverse-engineering.md
+
+  # - AUTRE :
+  #     - AUTRE : autre.md
+  #     - MKDOCS : mkdocs.md
+
+
+copyright: Copyright &copy; Mousse.
