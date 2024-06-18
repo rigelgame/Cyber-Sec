@@ -2,16 +2,18 @@
 
 - Création d'un pattern d'une longueur de 800
 ```bash
-/opt/metasploit/tools/exploit/pattern_create.rb -l 800
+/opt/metasploit/tools/exploit/pattern_create.rb -l 800 # pour Arch
+msf-pattern_create -l 3000 # pour Kali
 ```
 - Envoie du pattern dans la section vulnérable
 - Lire la valeur de EIP dans le débuggeur lorsque le programme à planté
 - Calcul de l'offset
 ```bash
-/opt/metasploit/tools/exploit/pattern_offset.rb -l 800 -q <value EIP>
+/opt/metasploit/tools/exploit/pattern_offset.rb -l 800 -q <value EIP> # pour Arch
+msf-pattern_offset -l 3000 -q 39694438 # pour Kali
 ```
 - Vérifier que l'offset est correcte en écrivant  `offset * "A" + 4 * "B"` dans la section. La valeur de l'EIP doit être `42424242`
- - vérifier la place dispo pour la Payload, envoyant dans la section `offset * "A" + 4 * "B" + 80 * "C"`. Les "C" doivent être écrit dans la mémoire.
+- vérifier la place dispo pour la Payload, envoyant dans la section `offset * "A" + 4 * "B" + 80 * "C"`. Les "C" doivent être écrit dans la mémoire.
 - chercher une DLL qui n'est pas sécurisé(Rebase, ASLR : False)
 ```
 !mona modules
