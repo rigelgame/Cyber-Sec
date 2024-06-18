@@ -498,12 +498,14 @@
 <h2 id="reverse">Reverse</h2>
 <ul>
 <li>Création d'un pattern d'une longueur de 800
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/opt/metasploit/tools/exploit/pattern_create.rb<span class="w"> </span>-l<span class="w"> </span><span class="m">800</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/opt/metasploit/tools/exploit/pattern_create.rb<span class="w"> </span>-l<span class="w"> </span><span class="m">800</span><span class="w"> </span><span class="c1"># pour Arch</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>msf-pattern_create<span class="w"> </span>-l<span class="w"> </span><span class="m">3000</span><span class="w"> </span><span class="c1"># pour Kali</span>
 </span></code></pre></div></li>
 <li>Envoie du pattern dans la section vulnérable</li>
 <li>Lire la valeur de EIP dans le débuggeur lorsque le programme à planté</li>
 <li>Calcul de l'offset
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/opt/metasploit/tools/exploit/pattern_offset.rb<span class="w"> </span>-l<span class="w"> </span><span class="m">800</span><span class="w"> </span>-q<span class="w"> </span>&lt;value<span class="w"> </span>EIP&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/opt/metasploit/tools/exploit/pattern_offset.rb<span class="w"> </span>-l<span class="w"> </span><span class="m">800</span><span class="w"> </span>-q<span class="w"> </span>&lt;value<span class="w"> </span>EIP&gt;<span class="w"> </span><span class="c1"># pour Arch</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>msf-pattern_offset<span class="w"> </span>-l<span class="w"> </span><span class="m">3000</span><span class="w"> </span>-q<span class="w"> </span><span class="m">39694438</span><span class="w"> </span><span class="c1"># pour Kali</span>
 </span></code></pre></div></li>
 <li>Vérifier que l'offset est correcte en écrivant  <code>offset * "A" + 4 * "B"</code> dans la section. La valeur de l'EIP doit être <code>42424242</code></li>
 <li>vérifier la place dispo pour la Payload, envoyant dans la section <code>offset * "A" + 4 * "B" + 80 * "C"</code>. Les "C" doivent être écrit dans la mémoire.</li>
