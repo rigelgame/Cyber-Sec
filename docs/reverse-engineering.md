@@ -1,4 +1,10 @@
-## Reverse
+## Attaque Buffer-Overflow
+
+Pour déterminer si un système est vulnérable, il faut d'un champ ou l'on rentre une valeur soit disponible comme une page de login en web ou une section mot de passe lors de l'authentification sur un serveur avec le protocole POP3.
+
+pour tester cela, on doit ouvrir l'applicatif dans un débuggeur et écrire une grande quantité de A pour voir si un dépassement de la mémoire est faisable.
+
+Une fois que nous sommes sûr que l'on peut faire un dépassement de mémoire, on doit déterminer l'offset pour atteindre l'EIP.
 
 - Création d'un pattern d'une longueur de 800
 ```bash
